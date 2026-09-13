@@ -69,7 +69,10 @@ class MatchingTests(unittest.TestCase):
         output = StringIO()
         with redirect_stdout(output):
             self.assertEqual(main(["completion", "bash"]), 0)
-        self.assertIn("complete -F _shtab_timeline_geotag timeline-geotag", output.getvalue())
+        completion = output.getvalue()
+        self.assertIn("complete -F _shtab_timeline_geotag timeline-geotag", completion)
+        self.assertIn("_shtab_timeline_geotag_pos_0_COMPGEN=_shtab_compgen_dirs", completion)
+        self.assertIn("_shtab_timeline_geotag_pos_1_COMPGEN=_shtab_compgen_files", completion)
 
     def test_missing_exiftool_stops_before_processing_with_exit_code_one(self) -> None:
         error = StringIO()

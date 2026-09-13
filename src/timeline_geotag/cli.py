@@ -253,8 +253,10 @@ def build_parser() -> argparse.ArgumentParser:
         prog="timeline-geotag",
         description="Geotag JPG and RW2 photos from an Android Google Maps Timeline export.",
     )
-    parser.add_argument("photo_dir", type=Path, help="directory containing .JPG and .RW2 photos")
-    parser.add_argument("timeline_json", type=Path, help="Android Google Maps Timeline JSON export")
+    photo_dir = parser.add_argument("photo_dir", type=Path, help="directory containing .JPG and .RW2 photos")
+    photo_dir.complete = shtab.DIR
+    timeline_json = parser.add_argument("timeline_json", type=Path, help="Android Google Maps Timeline JSON export")
+    timeline_json.complete = shtab.FILE
     parser.add_argument("--write", action="store_true", help="write matched GPS coordinates with exiftool")
     parser.add_argument("--recursive", action="store_true", help="search photo directories recursively")
     parser.add_argument("--timezone", help="IANA timezone for timezone-less EXIF timestamps (default: system local timezone)")
