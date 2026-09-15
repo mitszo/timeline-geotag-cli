@@ -51,11 +51,11 @@ uv run timeline-geotag photos/ timeline.json --recursive --timezone Asia/Tokyo -
 ## Bash completion
 
 ```bash
-source <(uv run timeline-geotag completion bash)
+source <(uv run timeline-geotag --completion bash)
 ```
 
 インストール済みの CLI では `uv run` を除いて実行できます。
 
 ```bash
-source <(timeline-geotag completion bash)
+source <(timeline-geotag --completion bash)
 ```
