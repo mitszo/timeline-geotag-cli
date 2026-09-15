@@ -68,7 +68,9 @@ class MatchingTests(unittest.TestCase):
     def test_prints_bash_completion(self) -> None:
         output = StringIO()
         with redirect_stdout(output):
-            self.assertEqual(main(["completion", "bash"]), 0)
+            with self.assertRaises(SystemExit) as exited:
+                main(["--completion", "bash"])
+        self.assertEqual(exited.exception.code, 0)
         completion = output.getvalue()
         self.assertIn("complete -F _shtab_timeline_geotag timeline-geotag", completion)
         self.assertIn("_shtab_timeline_geotag_pos_0_COMPGEN=_shtab_compgen_dirs", completion)

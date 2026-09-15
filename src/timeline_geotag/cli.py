@@ -268,6 +268,7 @@ def build_parser() -> argparse.ArgumentParser:
     backup.add_argument("--backup", dest="backup", action="store_true", default=True, help="keep exiftool _original backups (default)")
     backup.add_argument("--no-backup", dest="backup", action="store_false", help="do not keep exiftool _original backups")
     parser.add_argument("--verbose", action="store_true", help="show detailed skips and matching diagnostics")
+    shtab.add_argument_to(parser, "--completion")
     return parser
 
 
@@ -328,13 +329,6 @@ def run(args: argparse.Namespace) -> int:
 
 def main(argv: list[str] | None = None) -> int:
     raw_argv = list(argv) if argv is not None else sys.argv[1:]
-    if raw_argv[:1] == ["completion"]:
-        completion_parser = argparse.ArgumentParser(prog="timeline-geotag completion")
-        completion_parser.add_argument("shell", choices=["bash"], help="shell to generate completion for")
-        completion_args = completion_parser.parse_args(raw_argv[1:])
-        print(shtab.complete(build_parser(), completion_args.shell), end="")
-        return 0
-
     parser = build_parser()
     args = parser.parse_args(raw_argv)
     try:
